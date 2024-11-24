@@ -1,0 +1,137 @@
+<div class="container mt-5">
+  <h2 class="text-center">Report Management</h2>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-primary me-2" (click)="currentView = 'addReport'">Add Report</button>
+    <button class="btn btn-secondary" (click)="currentView = 'reportList'">View Reports</button>
+  </div>
+
+  <div *ngIf="currentView === 'addReport'">
+    <div class="card-header">
+      <h3>Add Report</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addReport()" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+          <label for="reportName" class="form-label">Report Name</label>
+          <input [(ngModel)]="newReport.reportName" id="reportName" name="reportName" required class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="date" class="form-label">Date</label>
+          <input [(ngModel)]="newReport.date" id="date" name="date" required type="date" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="adminId" class="form-label">Admin ID</label>
+          <input [(ngModel)]="newReport.adminId" id="adminId" name="adminId" required type="number"
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="managerId" class="form-label">Manager ID</label>
+          <input [(ngModel)]="newReport.managerId" id="managerId" name="managerId" required type="number"
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="reportType" class="form-label">Report Type</label>
+          <select [(ngModel)]="newReport.reportType" id="reportType" name="reportType" class="form-select">
+            <option value="Sales">Sales</option>
+            <option value="Production">Production</option>
+            <option value="Inventory">Inventory</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="pdfFile" class="form-label">Upload PDF</label>
+          <input type="file" (change)="handleFileInput($event)" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Report</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="currentView === 'reportList'">
+    <div class="card-header">
+      <h3>Reports List</h3>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <input [(ngModel)]="searchTerm" id="searchTerm" class="form-control" placeholder="Search by Report Name or Type"
+          (input)="filterReports()" />
+      </div>
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th style="width: 10%;">Report ID</th>
+            <th>Report Name</th>
+            <th>Report Type</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of filteredReports">
+            <td>{{ report.reportId }}</td>
+            <td>{{ report.reportName }}</td>
+            <td>{{ report.reportType }}</td>
+            <td>{{ report.date }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="updateReport(report)"
+                *ngIf="report.reportId">Update</button>
+
+              <button class="btn btn-danger btn-sm" (click)="deleteReport(report.reportId)"
+                *ngIf="report.reportId !== undefined">Delete</button>
+
+              <button class="btn btn-secondary btn-sm" (click)="downloadFile(report.reportId)"
+                *ngIf="report.reportId !== undefined">Download</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div *ngIf="currentView === 'updateReport'">
+    <div class="card-header">
+      <h3>Update Report</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="submitUpdatedReport()" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+          <label for="updateReportName" class="form-label">Report Name</label>
+          <input [(ngModel)]="selectedReport.reportName" id="updateReportName" name="reportName" required
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="updateDate" class="form-label">Date</label>
+          <input [(ngModel)]="selectedReport.date" id="updateDate" name="date" required type="date"
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="updateAdminId" class="form-label">Admin ID</label>
+          <input [(ngModel)]="selectedReport.adminId" id="updateAdminId" name="adminId" required type="number"
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="updateManagerId" class="form-label">Manager ID</label>
+          <input [(ngModel)]="selectedReport.managerId" id="updateManagerId" name="managerId" required type="number"
+            class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+          <label for="updateReportType" class="form-label">Report Type</label>
+          <select [(ngModel)]="selectedReport.reportType" id="updateReportType" name="reportType" class="form-select">
+            <option value="Sales">Sales</option>
+            <option value="Production">Production</option>
+            <option value="Inventory">Inventory</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="updatePdfFile" class="form-label">Update PDF (Optional)</label>
+          <input type="file" (change)="handleFileInput($event)" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Report</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="currentView = 'reportList'">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

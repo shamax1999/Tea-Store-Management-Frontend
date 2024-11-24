@@ -1,0 +1,185 @@
+<div class="container mt-5">
+    <h2 class="text-center">Order Management</h2>
+
+    <div class="text-center mb-4">
+        <button class="btn btn-primary me-2" (click)="currentView = 'addOrder'">Add Order</button>
+        <button class="btn btn-secondary" (click)="currentView = 'orderList'">View Orders</button>
+    </div>
+
+    <div *ngIf="currentView === 'addOrder'">
+        <div class="card-header">
+            <h3>Add Order</h3>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="addOrder()" #orderForm="ngForm">
+                <div class="form-group mb-3">
+                    <label for="customerId">Customer ID</label>
+                    <select [(ngModel)]="order.customerId" name="customerId" class="form-select" required>
+                        <option *ngFor="let customer of customers" [value]="customer.customerId">
+                            {{ customer.customerId }} - {{ customer.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="itemId">Item</label>
+                    <select [(ngModel)]="selectedItem" name="item" class="form-select" (ngModelChange)="onItemSelect($event)" required>
+                      <option *ngFor="let item of items" [ngValue]="item">
+                        {{ item.itemId }} - {{ item.itemName }}
+                      </option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group mb-3">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" class="form-control" id="itemName" [(ngModel)]="order.itemName" name="itemName" [readonly]="true" required />
+                  </div>
+                  
+
+                <div class="form-group mb-3">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select [(ngModel)]="order.paymentMethod" name="paymentMethod" class="form-select" required>
+                        <option value="Credit_Card">Credit Card</option>
+                        <option value="Debit_Card">Debit Card</option>
+                        <option value="Bank_Transfer">Bank Transfer</option>
+                        <option value="Cash_on_Delivery">Cash on Delivery</option>
+                        <option value="Mobile_Payment">Mobile Payment</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="orderDate">Order Date</label>
+                    <input [(ngModel)]="order.orderDate" name="orderDate" type="date" class="form-control" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="quantity">Quantity</label>
+                    <input [(ngModel)]="order.quantity" name="quantity" type="number" class="form-control" required (ngModelChange)="calculateTotalPrice()">
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label for="totalPrice">Total Price</label>
+                    <input [(ngModel)]="order.totalPrice" name="totalPrice" type="number" class="form-control" readonly>
+                </div>
+                
+
+                <div class="form-group mb-3">
+                    <label for="status">Status</label>
+                    <select [(ngModel)]="order.status" name="status" class="form-select" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Order</button>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="currentView === 'orderList'">
+        <div class="card-header">
+            <h3>Orders List</h3>
+        </div>
+        <div class="card-body">
+            <input [(ngModel)]="searchTerm" class="form-control mb-3" placeholder="Search by Order ID or Item Name" (input)="filterOrders()" />
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer ID</th>
+                        <th>Order Date</th>
+                        <th>Item Name</th>
+                        <th>Payment Method</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of filteredOrders">
+                        <td>{{ order.orderId }}</td>
+                        <td>{{ order.customerId }}</td>
+                        <td>{{ order.orderDate | date }}</td>
+                        <td>{{ order.itemName }}</td>
+                        <td>{{ order.paymentMethod }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.totalPrice }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm me-2" (click)="getOrderById(order.orderId)">Update</button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.orderId)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="currentView === 'updateOrder'">
+        <div class="card-header">
+            <h3>Update Order</h3>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="updateOrder()">
+                <div class="form-group mb-3">
+                    <label for="updateCustomerId">Customer ID</label>
+                    <select [(ngModel)]="order.customerId" name="customerId" class="form-select" required>
+                        <option *ngFor="let customer of customers" [value]="customer.customerId">
+                            {{ customer.customerId }} - {{ customer.name }}
+                        </option>
+                    </select>
+                </div>
+    
+                <div class="form-group mb-3">
+                    <label for="updateItemId">Item</label>
+                    <select [(ngModel)]="selectedItem" name="item" class="form-select" (ngModelChange)="onItemSelect($event)" required>
+                        <option *ngFor="let item of items" [ngValue]="item">
+                            {{ item.itemId }} - {{ item.itemName }}
+                        </option>
+                    </select>
+                </div>
+    
+                <div class="form-group mb-3">
+                    <label for="updateItemName">Item Name</label>
+                    <input type="text" class="form-control" id="updateItemName" [(ngModel)]="order.itemName" name="itemName" [readonly]="true" required />
+                </div>
+    
+                <div class="form-group mb-3">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select [(ngModel)]="order.paymentMethod" name="paymentMethod" id="paymentMethod" class="form-select" required>
+                        <option value="Credit_Card">Credit Card</option>
+                        <option value="Debit_Card">Debit Card</option>
+                        <option value="Bank_Transfer">Bank Transfer</option>
+                        <option value="Cash_on_Delivery">Cash on Delivery</option>
+                        <option value="Mobile_Payment">Mobile Payment</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="quantity">Quantity</label>
+                    <input [(ngModel)]="order.quantity" name="quantity" type="number" class="form-control" required (ngModelChange)="calculateTotalPrice()">
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label for="totalPrice">Total Price</label>
+                    <input [(ngModel)]="order.totalPrice" name="totalPrice" type="number" class="form-control" readonly>
+                </div>
+                
+    
+                <div class="form-group mb-3">
+                    <label for="updateStatus">Status</label>
+                    <select [(ngModel)]="order.status" name="status" id="updateStatus" class="form-select" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+    
+                <button type="submit" class="btn btn-warning">Update Order</button>
+            </form>
+        </div>
+    </div>
+    
+</div>

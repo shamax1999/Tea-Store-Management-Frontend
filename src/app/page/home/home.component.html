@@ -1,0 +1,224 @@
+<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+<body class="body2">
+    <header>
+        <img src="assets/img/logo.png" alt="" class="logo">
+      
+        <ul class="navbar">
+          <li><a (click)="scrollToSection('home2')">Home</a></li>
+          <li><a (click)="scrollToSection('about')">About</a></li>
+          <li><a (click)="scrollToSection('menu')">Collection</a></li>
+          <li><a (click)="scrollToSection('services')">Service</a></li>
+          <li><a (click)="scrollToSection('contact')">Contact</a></li>
+          <a routerLink="/login" class="bttn">Login</a>
+        </ul>
+        
+      </header>
+ 
+
+    <section class="home2" id="home2" #home2>
+        <div class="home2-text">
+            <br>
+            <h1>Welcome</h1>
+            <h2>To Golden Leaf Tea</h2>
+            
+            <a href="#menu" class="btn" >View Items</a>
+           
+        </div>
+        <div class="home2-img">
+            <img src="assets/img/home.png" alt="">
+        </div>
+    </section>
+ 
+    <section class="about" id="about" #about>
+        <div class="about-img">
+            <img src="assets/img/about.png" alt="">
+        </div>
+        <div class="about-text">
+            <span>About Us</span>
+            <h2>Pure, Fresh, Exceptional</h2>
+            <p>Welcome to Golden Leaf Tea, where tradition meets excellence in every cup. Rooted in a passion for the
+                finest tea, we bring you an unparalleled selection of premium blends crafted from the lush tea gardens
+                of Sri Lanka. Our mission is to deliver tea that embodies quality, freshness, and an authentic taste of
+                nature.
+                At Golden Leaf Tea, we believe in sustainability and ethical sourcing. We partner with local farmers to
+                ensure fair trade practices while maintaining the superior quality that our customers love. From
+                hand-plucked leaves to meticulously crafted blends, our teas are a celebration of artistry and
+                dedication.
+                Whether you're a connoisseur seeking rare teas or a casual drinker exploring new flavors, Golden Leaf
+                Tea promises a journey of discovery and delight. Join us as we continue to share the timeless joy of tea
+                with the world.</p>
+
+        </div>
+    </section>
+
+    <br><br>
+    <section class="menu" id="menu" #menu>
+        <div class="heading">
+            <span>Tea</span>
+            <h2>Exquisite Teas of the Week</h2>
+        </div>
+        <div class="menu-container">
+
+            <div class="box">
+                <div class="box-img">
+                    <img src="assets/img/tea2.jpeg" alt="">
+                    
+                </div>
+                
+            </div>
+
+            
+        </div>
+        <br>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+            <button class="btn btn-secondary" (click)="currentView = 'itemList'">View Tea Collection</button>
+        </div>
+        
+         
+  <div *ngIf="currentView === 'itemList'">
+    <h3>Tea </h3>
+
+    <div class="mb-4">
+      <button *ngFor="let teaType of ['All', 'Black Tea', 'Flavoured Tea', 'Green Tea', 'Herbal Tea']" 
+              class="btn btn-outline-primary me-2"
+              (click)="selectedTeaType = teaType; filterItemsByTeaType()">
+        {{ teaType }}
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4" *ngFor="let item of filteredItems">
+        <div class="card mb-4">
+          <img *ngIf="item.imageData" [src]="getFullImageUrl(item.imageData)" alt="Item Image" class="card-img-top" height="200">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.itemName }}</h5>
+            <p class="card-text"><strong>Tea Type:</strong> {{ item.teaType }}</p>
+            <p class="card-text"><strong>Price:</strong> {{ item.price | currency:'Rs.':'symbol':'1.0-0' }}</p>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        
+        
+    </section>
+
+    <br><br>
+    <section class="services" id="services" #services>
+        <div class="heading">
+            <span>Services</span>
+            <h2>We Provide the Finest Tea Experiences</h2>
+        </div>
+
+        <div class="servives-container">
+
+            <div class="s-box">
+                <img src="assets/img/order.png" alt="">
+                <h3>Select Your Blend</h3>
+                <p>Explore our curated collection of premium teas. From classic black teas to soothing herbal infusions,
+                    choose the perfect blend to suit your taste and mood.</p>
+            </div>
+
+            <div class="s-box">
+                <img src="assets/img/delivery-truck.png" alt="">
+                <h3>Fast Shipping</h3>
+                <p>Enjoy swift and secure shipping, bringing the finest teas from our gardens to your doorstep. We
+                    ensure every package reaches you in perfect condition.</p>
+            </div>
+
+            <div class="s-box">
+                <img src="assets/img/shipping.png" alt="">
+                <h3>Delivered Fresh</h3>
+                <p>Receive your tea fresh and ready to brew. Each delivery is handled with care to guarantee the highest
+                    quality and freshness in every cup.</p>
+            </div>
+            <div class="s-box">
+                <div class="shop-logos">
+                    <img src="assets/img/keells.png" alt="Keells">
+                    <img src="assets/img/arpico.png" alt="Arpico">
+                    <img src="assets/img/foodcity.png" alt="FoodCity">
+                </div>
+                <h3>Collect from Our Shops</h3>
+                <p>Now available at your favorite stores – Keells, Arpico, and FoodCity. Visit these locations to
+                    explore our premium tea collection and take home the perfect brew.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <br><br>
+    <section class="connect">
+        <div class="connect-text">
+            <span>Let's Talk</span>
+            <h2>Contact Us</h2>
+        </div>
+        <br><br>
+        <button class="btn btn-primary me-2" (click)="currentView = 'addFeedback'">Add Feedback</button>
+        
+    <div *ngIf="currentView === 'addFeedback'">
+        <div class="card-header">
+            
+            <br>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group mb-3">
+                    <input [(ngModel)]="feedback.name" name="name" class="form-control" placeholder="Name" required>
+                </div>
+                <div class="form-group mb-3">
+                    <input [(ngModel)]="feedback.description" name="description" class="form-control" placeholder="Description" required>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="addFeedback()">Add Feedback</button>
+            </form>
+        </div>
+    </div>
+
+        
+
+    </section>
+    <br><br>
+    <section class="contact" id="contact" #contact>
+        <div class="contact-box">
+            <h3>Golden Leaf Tea</h3>
+            <span>Contact With Us</span>
+            <div class="social">
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-twitter'></i></a>
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+            </div>
+        </div>
+        <div class="contact-box">
+            <h3>Menu</h3>
+            <li><a href="#home2">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#services">Service</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </div>
+
+        <div class="contact-box address">
+            <h3>Contact</h3>
+            <i class='bx bxs-map'><span>4/1, Kandy Road</span></i>
+            <i class='bx bxs-phone'><span>+94 812312129</span></i>
+            <i class='bx bxs-envelope'>
+                <span>goldenleaftea&#64;gmail.com</span>
+              </i>
+              
+        </div>
+    </section>
+
+
+    <div class="copyright">
+        <p>&#169;Golden Leaf Tea | 2024 </p>
+    </div>
+
+
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script src="home.js"></script>
+</body>

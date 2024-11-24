@@ -1,0 +1,140 @@
+.container {
+  margin: 20px;
+  margin-left: 300px; 
+  max-width: calc(100% - 300px); 
+  padding: 20px;
+  background-color: hsl(0, 0%, 100%); 
+  min-height: 100vh; 
+    box-sizing: border-box; 
+    background-image: url('/assets/bg.png'); 
+    color: #ffffff;
+    
+
+  
+}
+
+@media (max-width: 1200px) {
+  .container {
+    margin-left: 200px; 
+    max-width: calc(100% - 200px); 
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    margin-left: 150px; 
+    max-width: calc(100% - 150px); 
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-left: 0; 
+    max-width: 100%; 
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    margin: 10px; 
+    padding: 15px; 
+  }
+}
+
+
+form {
+  margin-bottom: 20px;
+}
+
+input {
+  margin: 5px;
+}
+
+button {
+  margin-left: 10px;
+  padding: 5px 10px;
+}
+
+table {
+width: 100%;
+margin-bottom: 1rem;
+table-layout: auto;
+
+}
+
+@media (max-width: 1200px) {
+table th, table td {
+  font-size: 14px; 
+}
+}
+
+@media (max-width: 992px) {
+table {
+  font-size: 12px; 
+}
+table th, table td {
+  padding: 8px; 
+}
+
+table th:nth-child(3), table td:nth-child(3), 
+table th:nth-child(4), table td:nth-child(4), 
+table th:nth-child(5), table td:nth-child(5)  {
+  display: none;
+}
+
+button {
+  padding: 5px 8px;
+  font-size: 12px;
+}
+}
+
+@media (max-width: 768px) {
+table {
+  font-size: 10px; 
+}
+
+table th, table td {
+  padding: 5px; 
+}
+
+table th:nth-child(4), table td:nth-child(4), 
+table th:nth-child(5), table td:nth-child(5), 
+table th:nth-child(6), table td:nth-child(6), 
+table th:nth-child(7), table td:nth-child(7), 
+table th:nth-child(8), table td:nth-child(8)  {
+  display: none;
+}
+
+button {
+  padding: 4px 8px;
+  font-size: 10px;
+}
+}
+
+@media (max-width: 576px) {
+table {
+  font-size: 9px; 
+}
+
+table th, table td {
+  padding: 4px; 
+}
+
+table th:nth-child(2), table td:nth-child(2), 
+table th:nth-child(3), table td:nth-child(3), 
+table th:nth-child(4), table td:nth-child(4), 
+table th:nth-child(5), table td:nth-child(5), 
+table th:nth-child(6), table td:nth-child(6), 
+table th:nth-child(7), table td:nth-child(7), 
+table th:nth-child(8), table td:nth-child(8)  {
+  display: none;
+}
+
+button {
+  padding: 4px 6px;
+  font-size: 8px; 
+}
+}
+
+
+

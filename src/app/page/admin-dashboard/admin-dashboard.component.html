@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<div class="dashboard">
+    <h2>Admin Dashboard</h2>
+    
+    <div class="row">
+        <div class="card">
+            <i class="fas fa-user-tie"></i> 
+            <h3>Managers</h3>
+            <p>{{ managersCount }}</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-users"></i> 
+            <h3>Employees</h3>
+            <p>{{ employeesCount }}</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-truck"></i> 
+            <h3>Suppliers</h3>
+            <p>{{ suppliersCount }}</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-boxes"></i> 
+            <h3>Items</h3>
+            <p>{{ itemsCount }}</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-shopping-cart"></i> 
+            <h3>Orders</h3>
+            <p>{{ ordersCount }}</p>
+        </div>
+    </div>
+    
+    <div class="card total-profits">
+        <i class="fas fa-dollar-sign"></i> 
+        <h3>Total Profits</h3>
+        <p>Rs.{{ totalOrderValue }}</p>
+    </div>
+</div>

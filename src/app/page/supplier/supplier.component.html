@@ -1,0 +1,126 @@
+<div class="container mt-5">
+  <h2 class="text-center">Supplier Management</h2>
+
+  <div class="text-center mb-4">
+    <button class="btn btn-primary me-2" (click)="currentView = 'addSupplier'">Add Supplier</button>
+    <button class="btn btn-secondary" (click)="currentView = 'supplierList'">View Suppliers</button>
+  </div>
+
+  <div *ngIf="currentView === 'addSupplier'">
+    <div class="card-header">
+      <h3>Add Supplier</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group mb-3">
+          <label for="name">Name</label>
+          <input [(ngModel)]="supplier.name" name="name" id="name" class="form-control" placeholder="Enter name" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input [(ngModel)]="supplier.email" name="email" id="email" class="form-control" placeholder="Enter email" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="address">Address</label>
+          <input [(ngModel)]="supplier.address" name="address" id="address" class="form-control" placeholder="Enter address" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="phoneNumber">Phone Number</label>
+          <input [(ngModel)]="supplier.phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter phone number" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="gender">Gender</label>
+          <select [(ngModel)]="supplier.gender" name="gender" id="gender" class="form-select" required>
+            <option value="" disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input [(ngModel)]="supplier.dateOfBirth" name="dateOfBirth" id="dateOfBirth" type="date" class="form-control" required>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addSupplier()">Add Supplier</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="currentView === 'supplierList'">
+    <div class="card-header">
+      <h3>Suppliers List</h3>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        
+        <input [(ngModel)]="searchTerm" id="searchTerm" class="form-control" placeholder="Search by Supplier ID or Name" (input)="filterSuppliers()" />
+      </div>
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th style="width: 10%;">Supplier ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of filteredSuppliers">
+            <td>{{ s.supplierId }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.address }}</td>
+            <td>{{ s.phoneNumber }}</td>
+            <td>{{ s.gender }}</td>
+            <td>{{ s.dateOfBirth | date }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="getSupplierById(s.supplierId); currentView = 'updateSupplier'">Update</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteSupplier(s.supplierId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="currentView === 'updateSupplier'">
+    <div class="card-header">
+      <h3>Update Supplier</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="updateSupplier()">
+        <div class="form-group mb-3">
+          <label for="name">Name</label>
+          <input [(ngModel)]="supplier.name" name="name" id="name" class="form-control" placeholder="Enter name" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input [(ngModel)]="supplier.email" name="email" id="email" class="form-control" placeholder="Enter email" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="address">Address</label>
+          <input [(ngModel)]="supplier.address" name="address" id="address" class="form-control" placeholder="Enter address" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="phoneNumber">Phone Number</label>
+          <input [(ngModel)]="supplier.phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter phone number" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="gender">Gender</label>
+          <select [(ngModel)]="supplier.gender" name="gender" id="gender" class="form-select" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input [(ngModel)]="supplier.dateOfBirth" name="dateOfBirth" id="dateOfBirth" type="date" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Supplier</button>
+      </form>
+    </div>
+  </div>
+</div>

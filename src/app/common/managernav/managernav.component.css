@@ -1,0 +1,85 @@
+body {
+  background-color: black;
+}
+
+.nav {
+  height: 100vh; 
+  background-color: #000000 !important;
+  color: #fff !important;
+  overflow-y: auto; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px; 
+  transition: width 0.3s ease;
+}
+
+  .id{
+    
+    margin-left: 300px; 
+    max-width: calc(100% - 300px); 
+   
+  }
+  
+  
+  .nav-logo {
+    width: 200px;
+    height: auto;
+    margin: 10px 0;
+    object-fit: contain;
+  }
+  
+  @media (max-width: 768px) {
+    .nav {
+      width: 250px;
+    }
+  }
+  
+  @media (max-width: 1200px) {
+    .nav {
+      width: 0;
+      visibility: hidden;
+    }
+  
+    .nav.active {
+      width: 250px;
+      visibility: visible;
+    }
+  
+    .btn-toggle {
+      display: block;
+    }
+  }
+  
+  .btn-toggle-nav a {
+    padding: 0.5rem 1rem;
+    color: #fff !important; 
+    transition: background-color 0.2s;
+  }
+  
+  .btn-toggle-nav a:hover {
+    background-color: #ffffff !important; 
+    color: #000 !important; 
+  }
+  
+  button, 
+  .btn, 
+  .btn-toggle-nav a {
+    color: #fff !important; 
+  }
+  
+  
+  .collapse.show {
+    transition: max-height 0.3s ease;
+  }
+  
+  .bi {
+    color: #fff !important;
+  }
+  
+  @media (max-width: 576px) {
+    .btn-toggle {
+      display: block;
+    }
+  }
+  

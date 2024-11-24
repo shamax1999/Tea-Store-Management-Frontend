@@ -1,0 +1,25 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  form input, form select, form button {
+    margin: 5px 0;
+  }
+
+  .container {
+    margin: 20px;
+    margin-left: 300px; 
+    max-width: calc(100% - 300px); 
+    padding: 20px;
+    background-color: #ffffff; 
+    min-height: 100vh; 
+    box-sizing: border-box; 
+    background-image: url('/assets/bg.png'); 
+    color: #ffffff;
+    
+    
+  }
+  
